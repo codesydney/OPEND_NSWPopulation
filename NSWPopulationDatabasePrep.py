@@ -16,58 +16,57 @@ import sys
 #######################################################################
 ### Create NSW_BIRTH_RATE Table                                     ### 
 #######################################################################
-conn = sqlite3.connect('NSW_BIRTH_RATE.sqlite')
+conn = sqlite3.connect('NSW_POPULATION.sqlite')
 cur = conn.cursor()
 
 cur.executescript('''	
-DROP TABLE IF EXISTS NSW_BIRTH_RATE;
+DROP TABLE IF EXISTS NSW_POPULATION;
 
-CREATE TABLE NSW_BIRTH_RATE (
+CREATE TABLE NSW_POPULATION (
 	YEAR              number(4),            
-	LOCALITY          varchar(100),
+	CODE              varchar(10),
 	SUBURB            varchar(100),  
 	STATE             char(3), 
 	POSTCODE          number(4),
-	COUNT             number(8)
+	POPULATION        number(10)
 );
 
 ''')
 
-fname = 'NSWBirthRate.txt'
+fname = 'NSWPopulation_001.csv'
 fhand = open(fname)
 
 #######################################################################
-### Populate NSW_BIRTH_RATE Table                                   ### 
+### Populate NSW_POPULATION Table                                   ### 
 #######################################################################
 for line in fhand:	
-	fields = line.split('|')
+	fields = line.split(',')
 
-	YEAR      = fields[0].strip() 
-	LOCALITY  = fields[1].strip()  
-	SUBURB    = fields[2].strip() 
-	STATE     = fields[3].strip() 
-	POSTCODE  = fields[4].strip() 
-	COUNT     = fields[5].strip() 
+	YEAR = '2011' 
+	CODE = fields[0].strip()  
+	SUBURB = fields[1].strip() 
+	STATE = fields[9].strip() 
+	POSTCODE = '' 
+	POPULATION = fields[2].strip() 
 	
-	if YEAR == "Year" : continue
 
-	cur.execute('''INSERT INTO NSW_BIRTH_RATE
+	cur.execute('''INSERT INTO NSW_POPULATION
         (
 		YEAR,
-		LOCALITY,
+		CODE,
 		SUBURB,
 		STATE,
 		POSTCODE,
-		COUNT
+		POPULATION
         )  
         VALUES ( ?, ?, ?, ?, ?, ?)''',   
 		(
 		YEAR,
-		LOCALITY,
+		CODE,
 		SUBURB,
 		STATE,
 		POSTCODE,
-		COUNT
+		POPULATION
 		))
 				
 conn.commit()

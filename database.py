@@ -2,7 +2,7 @@ from flask import g
 import sqlite3
 
 def connect_db():
-    sql = sqlite3.connect('NSW_BIRTH_RATE.sqlite')
+    sql = sqlite3.connect('NSW_POPULATION.sqlite')
     sql.row_factory = sqlite3.Row
     return sql
 
