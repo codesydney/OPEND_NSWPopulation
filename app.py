@@ -1,5 +1,5 @@
-from flask import Flask, g, request, jsonify
-from database import get_db
+from flask import Flask, g, request, jsonify, render_template
+from database import get_db 
 
 app = Flask(__name__)
 
@@ -45,6 +45,10 @@ def get_detail(SUBURB):
 
     return jsonify({'details' : return_values})
 
+
+@app.route("/")
+def index():
+    return render_template('index.html')
 
 if __name__ == '__main__':
     app.run(debug=True)
