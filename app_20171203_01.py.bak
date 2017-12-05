@@ -1,0 +1,61 @@
+from flask import Flask, g, request, jsonify, render_template
+from database import get_db 
+
+app = Flask(__name__)
+
+@app.route('/details', methods=['GET'])
+def get_details():
+    db = get_db()
+    details_cur = db.execute('select YEAR, CODE, SUBURB, STATE, POSTCODE, POPULATION from NSW_POPULATION')
+    details = details_cur.fetchall()
+
+    return_values = []
+
+    for detail in details:
+        detail_dict = {}
+        detail_dict['YEAR']      = detail['YEAR']
+        detail_dict['CODE']  = detail['CODE']
+        detail_dict['SUBURB']    = detail['SUBURB']
+        detail_dict['STATE']     = detail['STATE']
+        detail_dict['POSTCODE']  = detail['POSTCODE']
+        detail_dict['POPULATION']     = detail['POPULATION']
+
+        return_values.append(detail_dict)
+
+    return jsonify({'details' : return_values})
+
+@app.route('/details/<string:SUBURB>', methods=['GET'])
+def get_detail(SUBURB):
+    db = get_db()
+    details_cur = db.execute('select YEAR, CODE, SUBURB, STATE, POSTCODE, POPULATION from NSW_POPULATION where SUBURB = ?', [SUBURB])
+    details = details_cur.fetchall()
+
+    return_values = []
+
+    for detail in details:
+        detail_dict = {}
+        detail_dict['YEAR']      = detail['YEAR']
+        detail_dict['CODE']  = detail['CODE']
+        detail_dict['SUBURB']    = detail['SUBURB']
+        detail_dict['STATE']     = detail['STATE']
+        detail_dict['POSTCODE']  = detail['POSTCODE']
+        detail_dict['POPULATION']     = detail['POPULATION']
+
+        return_values.append(detail_dict)
+
+    return jsonify({'details' : return_values})
+
+
+@app.route('/')
+def index():
+    return app.send_static_file('index.html')
+    #return render_template('index.html')
+    
+    
+@app.route('/debug')
+def index_debug():
+    return app.send_static_file('index_debug.html')
+
+
+if __name__ == '__main__':
+    app.run(debug=True)

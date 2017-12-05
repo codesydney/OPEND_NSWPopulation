@@ -1,0 +1,17 @@
+1. index.html cannot find link like: ./bower_components/bootstrap/dist/css/bootstrap.min.css
+The start point of factory is no in static directory.
+Solution: 
+app.py:
+as-was: app = Flask(__name__)
+as-is: app = Flask(__name__,static_url_path='')
+
+2. Menu items
+in app.js:
+ var data = [props1, props2, props3];
+ 
+3. Event registion is in app.js
+Event controllor is in manager.js
+
+ 
+ 
+ 
