@@ -10,7 +10,7 @@ __pycache__/
 *$py.class
 
 # Bower dependency directory (https://bower.io/)
-static/bower_components/
+#static/bower_components/
 static/node_modules/
 
 
