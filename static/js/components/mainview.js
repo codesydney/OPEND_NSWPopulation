@@ -1,9 +1,9 @@
-define([], function() {
+define(["comp/maininput"], function(MainInput) {
     var Main = React.createClass({
     render: function() {
-        return ( 
-            <div>
-                <img src="resources/main.png"></img>
+        return (        
+            <div id = "maindiv">
+                <MainInput />
             </div>
         );
         }

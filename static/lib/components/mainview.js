@@ -1,14 +1,14 @@
 "use strict";
 
-define([], function () {
+define(["comp/maininput"], function (MainInput) {
     var Main = React.createClass({
         displayName: "Main",
 
         render: function render() {
             return React.createElement(
                 "div",
-                null,
-                React.createElement("img", { src: "resources/main.png" })
+                { id: "maindiv" },
+                React.createElement(MainInput, null)
             );
         }
     });

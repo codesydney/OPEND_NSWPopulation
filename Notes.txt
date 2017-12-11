@@ -12,6 +12,11 @@ in app.js:
 3. Event registion is in app.js
 Event controllor is in manager.js
 
+4. In order to deploy to Heroku.
+comment "static/bower_components/" in .gitignore.
+static/bower_components/ will be uploaded to github.
+And the previous process of deployment to Heroku do no need any change.
+
  
  
  
